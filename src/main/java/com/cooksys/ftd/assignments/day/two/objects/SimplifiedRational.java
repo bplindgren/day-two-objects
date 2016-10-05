@@ -1,10 +1,5 @@
 package com.cooksys.ftd.assignments.day.two.objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 public class SimplifiedRational implements IRational {
 	int numerator;
 	int denominator;
@@ -53,19 +48,21 @@ public class SimplifiedRational implements IRational {
 			throw new IllegalArgumentException();
 
 		// Create an initial array of the initial parameters
-		int[] simple = new int[] { numerator, denominator };
+		int[] simple = new int[2];
 
-		// If the numerator is 0, it cannot be simplified any more -> return the
-		// simple array
-		if (numerator == 0)
-			return simple;
+		// If the numerator is 0, it cannot be simplified any more -> return {numerator, denominator}
+		if (numerator == 0) {
+			simple[0] = numerator;
+			simple[1] = denominator;
+		} else {
+			// Find the GCD
+			int divider = gcd(Math.abs(numerator), Math.abs(denominator));
 
-		// Find the GCD
-		int divider = gcd(Math.abs(numerator), Math.abs(denominator));
-
-		// Update the values of the simplified array
-		simple[0] = numerator / divider;
-		simple[1] = denominator / divider;
+			// Update the values of the simplified array
+			simple[0] = numerator / divider;
+			simple[1] = denominator / divider;
+		}
+		
 		return simple;
 	}
 
@@ -146,7 +143,7 @@ public class SimplifiedRational implements IRational {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		// Check to make sure the paramter is a SimplifiedRational object
+		// Check to make sure the parameter is a SimplifiedRational object
 		if (!(obj instanceof SimplifiedRational))
 			return false;
 
@@ -155,14 +152,11 @@ public class SimplifiedRational implements IRational {
 				/ ((SimplifiedRational) obj).getDenominator()) > 0) {
 
 			// Collect values
-			int num = Math.abs(getNumerator());
-			int denom = Math.abs(getDenominator());
-
-			int checkNum = Math.abs(((SimplifiedRational) obj).getNumerator());
-			int checkDenom = Math.abs(((SimplifiedRational) obj).getDenominator());
+			int checkNum = ((SimplifiedRational) obj).getNumerator();
+			int checkDenom = ((SimplifiedRational) obj).getDenominator();
 
 			// Return if the two fractions are the same
-			return (num == checkNum && denom == checkDenom) ? true : false;
+			return (getNumerator() == checkNum && getDenominator() == checkDenom) ? true : false;
 
 		} else {
 			// If one is positive and one is negative, return false
@@ -181,8 +175,8 @@ public class SimplifiedRational implements IRational {
 	 */
 	@Override
 	public String toString() {
-		return ((numerator > 0) == (denominator > 0)) ? Math.abs(numerator) + "/" + Math.abs(denominator)
-				: "-" + Math.abs(numerator) + "/" + Math.abs(denominator);
+		String fraction = Math.abs(numerator) + "/" + Math.abs(denominator);
+		return ((numerator > 0) == (denominator > 0)) ? fraction : "-" + fraction;
 	}
 
 }

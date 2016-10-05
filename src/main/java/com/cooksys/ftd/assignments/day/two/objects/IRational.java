@@ -58,10 +58,7 @@ interface IRational {
 		if (getNumerator() == 0)
 			throw new IllegalStateException();
 
-		int num = getNumerator();
-		int denom = getDenominator();
-
-		return construct(denom, num);
+		return construct(getDenominator(), getNumerator());
 	}
 
 	/**
@@ -81,14 +78,10 @@ interface IRational {
 
 		int n1 = getNumerator();
 		int d1 = getDenominator();
-
 		int n2 = that.getNumerator();
 		int d2 = that.getDenominator();
 
-		int num = ((n1 * d2) + (n2 * d1));
-		int denom = (d1 * d2);
-
-		return construct(num, denom);
+		return construct(((n1 * d2) + (n2 * d1)), (d1 * d2));
 	}
 
 	/**
@@ -108,14 +101,10 @@ interface IRational {
 
 		int n1 = getNumerator();
 		int d1 = getDenominator();
-
 		int n2 = that.getNumerator();
 		int d2 = that.getDenominator();
 
-		int num = (n1 * d2) - (n2 * d1);
-		int denom = (d1 * d2);
-
-		return construct(num, denom);
+		return construct(((n1 * d2) - (n2 * d1)), (d1 * d2));
 	}
 
 	/**
@@ -135,14 +124,10 @@ interface IRational {
 
 		int n1 = getNumerator();
 		int d1 = getDenominator();
-
 		int n2 = that.getNumerator();
 		int d2 = that.getDenominator();
 
-		int num = (n1 * n2);
-		int denom = (d1 * d2);
-
-		return construct(num, denom);
+		return construct((n1 * n2), (d1 * d2));
 	}
 
 	/**
@@ -162,14 +147,10 @@ interface IRational {
 
 		int n1 = getNumerator();
 		int d1 = getDenominator();
-
 		int n2 = that.getNumerator();
 		int d2 = that.getDenominator();
 
-		int num = (n1 * d2);
-		int denom = (d1 * n2);
-
-		return construct(num, denom);
+		return construct((n1 * d2), (d1 * n2));
 	}
 
 }

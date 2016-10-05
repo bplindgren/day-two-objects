@@ -1,7 +1,5 @@
 package com.cooksys.ftd.assignments.day.two.objects;
 
-import java.lang.reflect.Constructor;
-
 //import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Rational implements IRational {
@@ -78,23 +76,21 @@ public class Rational implements IRational {
 	 */
 	@Override
 	public boolean equals(Object obj) {
-		// Check to make sure the parameter is a Rational object
-		if (!(obj instanceof Rational))
+		// Check to make sure the parameter is a SimplifiedRational object
+		if (!(obj instanceof Rational)) {
 			return false;
+		}
 
 		// Check to make sure both are positive or both are negative
 		if ((getNumerator() / getDenominator() > 0) == (((Rational) obj).getNumerator()
 				/ ((Rational) obj).getDenominator()) > 0) {
 
-			// Collect absolute values
-			int num = Math.abs(getNumerator());
-			int denom = Math.abs(getDenominator());
-
-			int checkNum = Math.abs(((Rational) obj).getNumerator());
-			int checkDenom = Math.abs(((Rational) obj).getDenominator());
+			// Collect values
+			int checkNum = ((Rational) obj).getNumerator();
+			int checkDenom = ((Rational) obj).getDenominator();
 
 			// Return if the two fractions are the same
-			return (num == checkNum && denom == checkDenom) ? true : false;
+			return (getNumerator() == checkNum && getDenominator() == checkDenom) ? true : false;
 
 		} else {
 			// if one is positive and one is negative, return false
@@ -114,8 +110,8 @@ public class Rational implements IRational {
 	 */
 	@Override
 	public String toString() {
-		return ((numerator > 0) == (denominator > 0)) ? Math.abs(numerator) + "/" + Math.abs(denominator)
-				: "-" + Math.abs(numerator) + "/" + Math.abs(denominator);
+		String fraction = Math.abs(numerator) + "/" + Math.abs(denominator);
+		return ((numerator > 0) == (denominator > 0)) ? fraction : "-" + fraction;
 	}
 
 }
